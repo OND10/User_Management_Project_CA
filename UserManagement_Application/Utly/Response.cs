@@ -29,7 +29,7 @@ namespace UserManagement_Application.Utly
 
         public bool IsSuccess { get; set; }
 
-        public T? Data { get; set; }
+        public T Data { get; set; }=default!;
 
         public static Response<T> Fail()
         {

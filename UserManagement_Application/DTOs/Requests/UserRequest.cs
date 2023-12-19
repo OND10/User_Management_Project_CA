@@ -52,12 +52,11 @@ namespace UserManagement_Application.DTOs.Requests
 
         [NotMapped]
         public IFormFile? File { get; set; }
+        public int Id { get; set; }
 
-
-
-        public User ToModel(UserRequest request)
+        public async Task<User> ToModel(UserRequest request)
         {
-            return new User
+            return await Task.FromResult<User>(new User
             {
                 Name = request.Name,
                 Email = request.Email,
@@ -69,12 +68,12 @@ namespace UserManagement_Application.DTOs.Requests
                 Username = request.Username,
                 Gender = request.Gender,
                 File = request.File
-            };
+            });
         }
 
-        public UserRequest ToRequest(User user)
+        public async Task<UserRequest> ToRequest(User user)
         {
-            return new UserRequest
+            return await Task.FromResult<UserRequest>(new UserRequest
             {
                 Name = user.Name,
                 Email = user.Email,
@@ -86,7 +85,7 @@ namespace UserManagement_Application.DTOs.Requests
                 Username = user.Username,
                 Gender = user.Gender,
                 File = user.File
-            };
+            });
         }
 
     }

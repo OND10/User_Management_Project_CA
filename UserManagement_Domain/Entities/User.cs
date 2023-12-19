@@ -14,7 +14,7 @@ namespace UserManagement_Domain.Entities
     {
 
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage ="This field is required")]
         public string Name { get; set; }=string.Empty;
@@ -37,39 +37,27 @@ namespace UserManagement_Domain.Entities
         [Phone]
         public string PhoneNumber {  get; set; } = string.Empty;
 
-
         [Compare("Password", ErrorMessage = "Passwords are not not matching ")]
         public string ConfirmPassword { get; set; } = null!;
-
-
 
         public bool State { get; set; } = false;
 
         [Required(ErrorMessage = "This field is required")]
         public string? Address { get; set; }
-
-
        
         public string ImageUrl {  get; set; }=null!;
 
-
         [NotMapped]
         public IFormFile? File { get; set; }
-
 
         public DateTime? CreatedDate { get; set; }
 
         public DateTime? LastModifiedDate { get;set; }
 
-
-        
         public int? Role_Id { get; set; }
 
-
         [ForeignKey(nameof(Role_Id))]
-
         [InverseProperty(nameof(Role.Users))]
-
         public ICollection<Role>? roles { get; set; }
 
     }
