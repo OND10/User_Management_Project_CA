@@ -23,7 +23,7 @@ namespace TestProject
             var callmocking = new Mock<IUserService>();
             //Mocked the IUserService to return the specified method
             callmocking.Setup(user => user.GetAllAsync())
-                .ReturnsAsync(Response<IEnumerable<UserResponse>>.Success(new List<UserResponse>
+                .ReturnsAsync(await Response<IEnumerable<UserResponse>>.SuccessAsync(new List<UserResponse>
                 {
                     //Making a new object of the UserResponse
                     new UserResponse
@@ -66,7 +66,7 @@ namespace TestProject
             var callmocking = new Mock<IUserService>();
             //Mocked the IUserService to return the specified method
             callmocking.Setup(user => user.CreateAsync(It.IsAny<UserRequest>()))
-                .ReturnsAsync(Response<UserResponse>.Success(new UserResponse
+                .ReturnsAsync(await Response<UserResponse>.SuccessAsync(new UserResponse
                 {
                     Id = 1,
                     Name = "User1",
@@ -107,7 +107,7 @@ namespace TestProject
             var callmocing = new Mock<IUserService>();
             //Mocked the IUserService to return the specified method
             callmocing.Setup(user => user.GetByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(Response<UserRequest>.Success(new UserRequest
+                .ReturnsAsync(await Response<UserRequest>.SuccessAsync(new UserRequest
                 {
                     Id = 1,
                     Name = "User1",
@@ -136,7 +136,7 @@ namespace TestProject
             //Arrange
             var callmocing= new Mock<IUserService>();
             //Mocked the IUserService to return the specified method
-            callmocing.Setup(user => user.DeleteAsync(It.IsAny<UserRequest>())).ReturnsAsync(Response.Success());
+            callmocing.Setup(user => user.DeleteAsync(It.IsAny<UserRequest>())).ReturnsAsync(await Response.SuccessAsync());
             //Making a new object of the UserRequest
             var requestobj = new UserRequest
             {
