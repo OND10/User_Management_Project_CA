@@ -26,18 +26,18 @@ namespace UserManagement_Application.DTOs.Responses
 
 
 
-        public RoleResponse FromModel(Role role)
+        public async Task<RoleResponse> FromModel(Role role)
         {
-            return new RoleResponse 
+            return await Task.FromResult<RoleResponse>(new RoleResponse 
             { 
                 Id=role.Id,
                 Name=role.Name,
                 Description=role.Description,
                 Users=role.Users,
-            };
+            });
         }
 
-        public List<RoleResponse> FromModel(IEnumerable<Role> role)
+        public async Task<List<RoleResponse>> FromModel(IEnumerable<Role> role)
         {
 
             List<RoleResponse> responses = new List<RoleResponse>();
@@ -54,9 +54,9 @@ namespace UserManagement_Application.DTOs.Responses
 
                 responses.Add(res);
             }
-            var list = new List<RoleResponse>();
-            list.AddRange(role.Select((x) => FromModel(x)));
-            return list;
+            var list = new  List<RoleResponse>();
+            list.AddRange((IEnumerable<RoleResponse>)role.Select((x) => FromModel(x)));
+            return await Task.FromResult<List<RoleResponse>>(list);
 
         }
 

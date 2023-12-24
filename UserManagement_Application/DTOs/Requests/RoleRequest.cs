@@ -10,6 +10,9 @@ namespace UserManagement_Application.DTOs.Requests
 {
     public class RoleRequest
     {
+
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "The field is required")]
         [Display(Name = "Role Name")]
         public string Name { get; set; } = null!;
@@ -18,22 +21,22 @@ namespace UserManagement_Application.DTOs.Requests
 
 
 
-        public Role ToModel(RoleRequest request)
+        public async Task<Role> ToModel(RoleRequest request)
         {
-            return new Role
+            return await Task.FromResult<Role>(new Role
             {
                 Name = request.Name,
                 Description = request.Description,
-            };
+            });
         }
 
-        public RoleRequest ToRequest(Role role)
+        public async Task<RoleRequest> ToRequest(Role role)
         {
-            return new RoleRequest
+            return await Task.FromResult<RoleRequest>(new RoleRequest
             {
                 Name = role.Name,
                 Description = role.Description,
-            };
+            });
         }
 
     }

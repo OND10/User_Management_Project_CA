@@ -61,4 +61,38 @@ namespace UserManagement_Domain.Entities
         public ICollection<Role>? roles { get; set; }
 
     }
+
+    public class UserFakeData
+    {
+
+        public int Id { get; set; }
+
+        public string Name { get; set; } = string.Empty;
+
+        public string Email { get; set; } = string.Empty;
+
+        public string? Password { get; set; }
+
+        public bool Gender { get; set; } = Convert.ToBoolean(GenderEnum.Female);
+
+        public string Username { get; set; } = null!;
+
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        public User ToModel(UserFakeData user)
+        {
+            return new User
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                Password = user.Password,
+                Gender = user.Gender,
+                Username = user.Username,
+                PhoneNumber = user.PhoneNumber,
+            };
+        }
+
+
+    }
 }

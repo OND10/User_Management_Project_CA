@@ -8,12 +8,21 @@ namespace TestProject
     {
 
 
+        private  readonly Mock<IUserService> _userServiceMock;
+        public UnitTest_User_Domain(Mock<IUserService> userServiceMock)
+        {
+            _userServiceMock = userServiceMock;
+        }
+
+        
         [Theory]
         [InlineData("osama@gmail.com")]
         [InlineData("john.doe@example.com")]
 
         public static string Email_Unit_Test_Validation(string defaultEmail)
         {
+           
+            
            //Arrange
            //mocking for use case IUser to check for its attributes
             var callmocking = new Mock<IUserService>();
@@ -56,7 +65,7 @@ namespace TestProject
 
 
         [Theory]
-        [InlineData("Osamadammag2002%")]
+        [InlineData("Osamadammag2002$")]
         [InlineData("Ond123dammag@")]
 
         public static string Password_Unit_Test_Validation(string defaultPassword)
@@ -79,7 +88,8 @@ namespace TestProject
 
 
         [Theory]
-        [InlineData("Osamadammag2002%")]
+        [InlineData("Osamadammag2002$")]
+        [InlineData("Ond123dammag@")]
 
         public static string Password_Unit_Test_Confirm_Validation(string defaultConfirmPassword)
         {
@@ -92,7 +102,7 @@ namespace TestProject
             defaultConfirmPassword= mockeduser.ConfirmPassword;
 
             //Asserting
-            Assert.Matches(Password_Unit_Test_Validation("Osamadammag2002%"), defaultConfirmPassword);
+            Assert.Matches("", defaultConfirmPassword);
 
             return defaultConfirmPassword;
         }

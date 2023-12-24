@@ -97,8 +97,8 @@ namespace UserManagement_Application.Services
             {
                 var find = users.FirstOrDefault(u => u.Id == id);
                 if (find==null) 
-                { 
-                    return null;
+                {
+                    throw new IdNullException("Exception : Id is Null");
                 }
                 else
                 {

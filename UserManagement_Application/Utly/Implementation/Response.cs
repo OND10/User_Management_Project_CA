@@ -18,6 +18,11 @@ namespace UserManagement_Application.Utly
             return new Response { IsSuccess = true };
         }
 
+        public static async Task<IResponse> SuccessAsync()
+        {
+            return await Task.FromResult<Response>(new Response { IsSuccess = true });
+;        }
+
 
     }
 
@@ -61,12 +66,12 @@ namespace UserManagement_Application.Utly
         }
         public static async Task<Response<T>> SuccessAsync(T data)
         {
-            var result = await SuccessAsync(data);
+            var result = await Task.FromResult<Response<T>>(new Response<T> { IsSuccess=true,Data=data});
             return result;
         }
         public static async Task<Response<T>> SuccessAsync(T data, string Message)
         {
-            var result=await SuccessAsync(data,Message);
+            var result = await Task.FromResult<Response<T>>(new Response<T> { IsSuccess = true, Data = data,Message=Message});
             return result;
         }
 

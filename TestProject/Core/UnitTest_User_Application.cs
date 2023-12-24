@@ -11,18 +11,23 @@ using UserManagement_Application.Utly;
 using UserManagement_Domain.Common.Enums;
 using UserManagement_Domain.Entities;
 using Xunit;
-namespace TestProject
+namespace TestProject.Core
 {
     public class UnitTest_User_Application
     {
+        private readonly Mock<IUserService> _userServiceMock;
+        public UnitTest_User_Application(Mock<IUserService> userServiceMock)
+        {
+            _userServiceMock = userServiceMock;
+        }
+
 
         [Fact]
         public async Task User_Get_AllAsync_Method_Test()
         {
             // Arrange
-            var callmocking = new Mock<IUserService>();
             //Mocked the IUserService to return the specified method
-            callmocking.Setup(user => user.GetAllAsync())
+            _userServiceMock.Setup(user => user.GetAllAsync())
                 .ReturnsAsync(Response<IEnumerable<UserResponse>>.Success(new List<UserResponse>
                 {
                     //Making a new object of the UserResponse
@@ -44,7 +49,7 @@ namespace TestProject
 
 
             // Acting
-            IUserService mockeduser = callmocking.Object;
+            IUserService mockeduser = _userServiceMock.Object;
             //Assigning actualed_value to getall method
             var actualed_value = await mockeduser.GetAllAsync();
 
@@ -63,9 +68,8 @@ namespace TestProject
         public async Task User_CreateAsync_Method_Test()
         {
             // Arrange
-            var callmocking = new Mock<IUserService>();
             //Mocked the IUserService to return the specified method
-            callmocking.Setup(user => user.CreateAsync(It.IsAny<UserRequest>()))
+            _userServiceMock.Setup(user => user.CreateAsync(It.IsAny<UserRequest>()))
                 .ReturnsAsync(Response<UserResponse>.Success(new UserResponse
                 {
                     Id = 1,
@@ -89,7 +93,7 @@ namespace TestProject
 
 
             // Acting
-            IUserService mockeduser=callmocking.Object;
+            IUserService mockeduser= _userServiceMock.Object;
             //Assigning actualed_value to create method
             var actualed_value = await mockeduser.CreateAsync(userAdd);
 
@@ -104,9 +108,8 @@ namespace TestProject
         {
 
             //Arrange
-            var callmocing = new Mock<IUserService>();
             //Mocked the IUserService to return the specified method
-            callmocing.Setup(user => user.GetByIdAsync(It.IsAny<int>()))
+            _userServiceMock.Setup(user => user.GetByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(Response<UserRequest>.Success(new UserRequest
                 {
                     Id = 1,
@@ -116,12 +119,12 @@ namespace TestProject
                     Gender = Convert.ToBoolean(GenderEnum.Male),
                     PhoneNumber = UnitTest_User_Domain.Phone_Unit_Test_Validation("+967-779136337"),
                     Password = UnitTest_User_Domain.Password_Unit_Test_Validation("Osamadammag2002%"),
-                    ConfirmPassword = UnitTest_User_Domain.Password_Unit_Test_Confirm_Validation("Osamadammag2002%")
+                    ConfirmPassword = "Osamadammag2002%"
                 }));
 
             //Acting
             //making an object of IUserService
-            IUserService mockeduser = callmocing.Object;
+            IUserService mockeduser = _userServiceMock.Object;
             //Assigning actualed_value to getbyid method
             var actualed_value = await mockeduser.GetByIdAsync(It.IsAny<int>());
 
@@ -134,9 +137,8 @@ namespace TestProject
         {
 
             //Arrange
-            var callmocing= new Mock<IUserService>();
             //Mocked the IUserService to return the specified method
-            callmocing.Setup(user => user.DeleteAsync(It.IsAny<UserRequest>())).ReturnsAsync(Response.Success());
+            _userServiceMock.Setup(user => user.DeleteAsync(It.IsAny<UserRequest>())).ReturnsAsync(Response.Success());
             //Making a new object of the UserRequest
             var requestobj = new UserRequest
             {
@@ -147,12 +149,12 @@ namespace TestProject
                 Gender = Convert.ToBoolean(GenderEnum.Male),
                 PhoneNumber = UnitTest_User_Domain.Phone_Unit_Test_Validation("+967-779136337"),
                 Password = UnitTest_User_Domain.Password_Unit_Test_Validation("Osamadammag2002%"),
-                ConfirmPassword = UnitTest_User_Domain.Password_Unit_Test_Confirm_Validation("Osamadammag2002%")
+                ConfirmPassword = "Osamadammag2002%"
             };
 
             //Acting
             //making an object of IUserService
-            IUserService mockeduser= callmocing.Object;
+            IUserService mockeduser= _userServiceMock.Object;
             //Assigning actualed_value to delete method
             var actualed_value = await mockeduser.DeleteAsync(requestobj);
 
