@@ -39,14 +39,14 @@ namespace UserManagement_Application.Services.RoleServices
             _mapper = mapper;
         }
 
-        public async Task<IResponse<RoleResponse>> CreateAsync(RoleRequest model)
+        public async Task<IResponse<RoleResponseDTO>> CreateAsync(RoleRequestDTO model)
         {
             try
             {
                 var domainmodel = _mapper.Map<Role>(model);
                 roles.Add(domainmodel);
-                var responsemodel = new RoleResponse();
-                return await Response<RoleResponse>.SuccessAsync(await responsemodel.FromModel(domainmodel), "Added Successfully");
+                var responsemodel = new RoleResponseDTO();
+                return await Response<RoleResponseDTO>.SuccessAsync(await responsemodel.FromModel(domainmodel), "Added Successfully");
             }
             catch (Exception)
             {
@@ -54,7 +54,7 @@ namespace UserManagement_Application.Services.RoleServices
             }
         }
 
-        public async Task<IResponse> DeleteAsync(RoleRequest model)
+        public async Task<IResponse> DeleteAsync(RoleRequestDTO model)
         {
             try
             {
@@ -68,14 +68,14 @@ namespace UserManagement_Application.Services.RoleServices
             }
         }
 
-        public async Task<IResponse<IEnumerable<RoleResponse>>> GetAllAsync()
+        public async Task<IResponse<IEnumerable<RoleResponseDTO>>> GetAllAsync()
         {
             try
             {
                 var list = roles.ToList();
-                var responsemodel = new RoleResponse();
+                var responsemodel = new RoleResponseDTO();
                 var converted = await responsemodel.FromModel(list);
-                return await Response<IEnumerable<RoleResponse>>.SuccessAsync(converted, "Viewd Successfully");
+                return await Response<IEnumerable<RoleResponseDTO>>.SuccessAsync(converted, "Viewd Successfully");
             }
             catch (Exception)
             {
@@ -83,7 +83,7 @@ namespace UserManagement_Application.Services.RoleServices
             }
         }
 
-        public async Task<IResponse<RoleRequest>> GetByIdAsync(int id)
+        public async Task<IResponse<RoleRequestDTO>> GetByIdAsync(int id)
         {
             try
             {
@@ -94,9 +94,9 @@ namespace UserManagement_Application.Services.RoleServices
                 }
                 else
                 {
-                    var requestmodel = new RoleRequest();
+                    var requestmodel = new RoleRequestDTO();
                     var findrequest = await requestmodel.ToRequest(find);
-                    return await Response<RoleRequest>.SuccessAsync(findrequest, "");
+                    return await Response<RoleRequestDTO>.SuccessAsync(findrequest, "");
                 }
             }
             catch (Exception)
@@ -106,7 +106,7 @@ namespace UserManagement_Application.Services.RoleServices
             }
         }
 
-        public Task<IResponse<RoleResponse>> UpdateAsync(RoleRequest model)
+        public Task<IResponse<RoleResponseDTO>> UpdateAsync(RoleRequestDTO model)
         {
             throw new ModelNullException(nameof(model), "Exception in updating roles");
         }

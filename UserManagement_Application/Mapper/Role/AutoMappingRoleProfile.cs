@@ -15,8 +15,8 @@ namespace UserManagement_Application.Mapper
 
         public AutoMappingRoleProfile()
         {
-            CreateMap<RoleRequest, Role>();
-            CreateMap<Role, RoleResponse>();
+            CreateMap<RoleRequestDTO, Role>();
+            CreateMap<Role, RoleResponseDTO>();
         }
 
     }

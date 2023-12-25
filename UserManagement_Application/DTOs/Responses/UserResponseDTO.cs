@@ -10,7 +10,7 @@ using UserManagement_Domain.Entities;
 
 namespace UserManagement_Application.DTOs.Responses
 {
-    public class UserResponse
+    public class UserResponseDTO
     {
 
         public int Id { get; set; }
@@ -36,20 +36,20 @@ namespace UserManagement_Application.DTOs.Responses
 
         public ICollection<Role>? roles { get; set; }
 
-        public async Task<UserResponse> FromModel(User user)
+        public async Task<UserResponseDTO> FromModel(User user)
         {
-            return await Task.FromResult<UserResponse>(new UserResponse 
+            return await Task.FromResult<UserResponseDTO>(new UserResponseDTO 
             { 
                 Id = user.Id, Name = user.Name, Email = user.Email, State = user.State, Address = user.Address 
             });
         }
 
-        public async Task<List<UserResponse>> FromModel(IEnumerable<User>user) {
+        public async Task<List<UserResponseDTO>> FromModel(IEnumerable<User>user) {
 
-            List<UserResponse> responses=new List<UserResponse>();
+            List<UserResponseDTO> responses=new List<UserResponseDTO>();
             foreach(var item in user)
             {
-                var res = new UserResponse
+                var res = new UserResponseDTO
                 {
                     Id = item.Id,
                     Name = item.Name,
@@ -62,9 +62,9 @@ namespace UserManagement_Application.DTOs.Responses
                 };
                 responses.Add(res);
             }
-            var list=new List<UserResponse>();
-            list.AddRange((IEnumerable<UserResponse>)user.Select((x) => FromModel(x)));
-            return await Task.FromResult<List<UserResponse>>(list);
+            var list=new List<UserResponseDTO>();
+            list.AddRange((IEnumerable<UserResponseDTO>)user.Select((x) => FromModel(x)));
+            return await Task.FromResult<List<UserResponseDTO>>(list);
         
         }
     }

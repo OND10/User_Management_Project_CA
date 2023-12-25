@@ -73,12 +73,12 @@ namespace UserManagement_Infustracture.Implementation
 
         public new Task<IEnumerable<User>> Query(string query)
         {
-            throw new NotImplementedException();
+            throw new ModelNullException(nameof(query), "Repo Query Exception");
         }
 
         public new Task<User> UpdateAsync(User model)
         {
-            throw new NotImplementedException();
+            throw new ModelNullException(nameof(model), "Repo Update Exception");
         }
 
 

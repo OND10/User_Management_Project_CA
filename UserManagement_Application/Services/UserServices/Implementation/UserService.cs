@@ -43,7 +43,7 @@ namespace UserManagement_Application.Services
 
 
 
-        public async Task<IResponse<UserResponse>> CreateAsync(UserRequest model)
+        public async Task<IResponse<UserResponseDTO>> CreateAsync(UserRequestDTO model)
         {
             try
             {
@@ -51,9 +51,9 @@ namespace UserManagement_Application.Services
                 User modelobj =  await model.ToModel(model);
                 //Added to list of type domain model
                 users.Add(modelobj);
-                var responseobj = new UserResponse();
+                var responseobj = new UserResponseDTO();
 
-                return Response<UserResponse>.Success(await responseobj.FromModel(modelobj)," ");
+                return Response<UserResponseDTO>.Success(await responseobj.FromModel(modelobj)," ");
             }
             catch (Exception)
             {
@@ -61,7 +61,7 @@ namespace UserManagement_Application.Services
             }
         }
 
-        public async Task<IResponse> DeleteAsync(UserRequest model)
+        public async Task<IResponse> DeleteAsync(UserRequestDTO model)
         {
             try
             {
@@ -75,15 +75,15 @@ namespace UserManagement_Application.Services
             }
         }
 
-        public async Task<IResponse<IEnumerable<UserResponse>>> GetAllAsync()
+        public async Task<IResponse<IEnumerable<UserResponseDTO>>> GetAllAsync()
         {
             try
             {
                 var list = users.ToList();
-                var responseobj=new UserResponse();
+                var responseobj=new UserResponseDTO();
                 var converted= await responseobj.FromModel(list);
 
-                return Response<IEnumerable<UserResponse>>.Success(converted," ");
+                return Response<IEnumerable<UserResponseDTO>>.Success(converted," ");
             }
             catch (Exception)
             {
@@ -91,7 +91,7 @@ namespace UserManagement_Application.Services
             }
         }
 
-        public async Task<IResponse<UserRequest>> GetByIdAsync(int id)
+        public async Task<IResponse<UserRequestDTO>> GetByIdAsync(int id)
         {
             try
             {
@@ -102,8 +102,8 @@ namespace UserManagement_Application.Services
                 }
                 else
                 {
-                    var requestobj=new UserRequest();
-                    return Response<UserRequest>.Success(await requestobj.ToRequest(find)," ");
+                    var requestobj=new UserRequestDTO();
+                    return Response<UserRequestDTO>.Success(await requestobj.ToRequest(find)," ");
                 }
             }
             catch (Exception)

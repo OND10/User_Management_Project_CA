@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestProject.FakeEntities;
 using UserManagement_Application.DTOs.Requests;
 using UserManagement_Application.DTOs.Responses;
 using UserManagement_Application.Services.RoleServices;
@@ -13,7 +14,7 @@ using Xunit;
 
 namespace TestProject.Core
 {
-    public class UnitTest_Role_Application
+    public class UnitTest_Role_Application:DtoFakeBaseModel
     {
         private readonly Mock<IRoleService> _roleService;
         public UnitTest_Role_Application(Mock<IRoleService> roleService)
@@ -27,21 +28,7 @@ namespace TestProject.Core
             // Arrange
             //Mocked the IRoleService to return the specified method using the Dependency Injection
             _roleService.Setup(role => role.GetAllAsync())
-                .ReturnsAsync(await Response<IEnumerable<RoleResponse>>.SuccessAsync(new List<RoleResponse>
-                {
-                    //Making a new object of the Roleresponse
-                    new RoleResponse
-                    {
-                            Id=Convert.ToInt16(RolesEnum.Admin),Name="Admin",Description = "Controlling all users,endusers and managers in the system"
-                    },
-                    
-                    //Making another new object of the Roleresponse
-                    new RoleResponse
-                    {
-                            Id=Convert.ToInt16(RolesEnum.User),Name="User",Description = "Interacting with system as other users"
-                    },
-
-                }, " ")
+                .ReturnsAsync(await Response<IEnumerable<RoleResponseDTO>>.SuccessAsync(roleresponseDTOs, " ")
                 );
 
 
@@ -50,10 +37,9 @@ namespace TestProject.Core
             //Assigning actualed_value to getall method
             var actualed_value = await mockedrole.GetAllAsync();
 
-
             // Asserting
             //This IsAssignableFrom is used to check if its parameter equals the actualed_value
-            var responses = Assert.IsAssignableFrom<Response<IEnumerable<RoleResponse>>>(actualed_value);
+            var responses = Assert.IsAssignableFrom<Response<IEnumerable<RoleResponseDTO>>>(actualed_value);
             //fetching the data of the Roleresponse as a list
             var models = responses.Data;
             //To check times of data recorded => measn how many recors are returned
@@ -67,25 +53,13 @@ namespace TestProject.Core
 
             //Arrange
             //Mocked the IRoleService to return the specified method
-            _roleService.Setup(role => role.CreateAsync(It.IsAny<RoleRequest>())).
-                ReturnsAsync(await Response<RoleResponse>.SuccessAsync(new RoleResponse
-                {
-                    Id = Convert.ToInt16(RolesEnum.Admin), Name="Admin",Description = "Controlling all users,endusers and managers in the system"
-                }));
-
-            //Making a new instance of RoleRequest
-            var requestmodel = new RoleRequest
-            {
-
-                Id = Convert.ToInt16(RolesEnum.Admin),
-                Name = "Admin",
-                Description = "Controlling all users,endusers and managers in the system"
-            };
+            _roleService.Setup(role => role.CreateAsync(It.IsAny<RoleRequestDTO>())).
+                ReturnsAsync(await Response<RoleResponseDTO>.SuccessAsync(roleresponse));
 
             //Acting
             IRoleService mockedrole = _roleService.Object;
             //Assigning actualed_value to create method
-            var actualed_value = mockedrole.CreateAsync(requestmodel);
+            var actualed_value = mockedrole.CreateAsync(rolerequest);
 
             //Asserting
             //Check if actualed_value is not null
@@ -102,12 +76,7 @@ namespace TestProject.Core
             //Arrange
             //Mocked the IUserService to return the specified method
             _roleService.Setup(role => role.GetByIdAsync(It.IsAny<int>())).
-                ReturnsAsync(await Response<RoleRequest>.SuccessAsync(new RoleRequest
-                {
-                    Id = Convert.ToInt16(RolesEnum.Admin),
-                    Name = "Admin",
-                    Description = "Controlling all users,endusers and managers in the system"
-                }));
+                ReturnsAsync(await Response<RoleRequestDTO>.SuccessAsync(rolerequest));
 
             //Acting
             IRoleService mockedrole= _roleService.Object;
@@ -126,20 +95,13 @@ namespace TestProject.Core
 
             //Arrange
             //Mocked the IUserService to return the specified method
-            _roleService.Setup(role => role.DeleteAsync(It.IsAny<RoleRequest>())).
+            _roleService.Setup(role => role.DeleteAsync(It.IsAny<RoleRequestDTO>())).
                 ReturnsAsync(await Response.SuccessAsync());
-            //Making a new object of the RoleRequest
-            var requestmodel = new RoleRequest
-                 {
-                     Id = Convert.ToInt16(RolesEnum.Admin),
-                     Name = "Admin",
-                     Description = "Controlling all users,endusers and managers in the system"
-                 };
-
+           
             //Acting
             IRoleService mockedrole= _roleService.Object;
             //Assigning actualed_value to delete method
-            var actualed_value = await mockedrole.DeleteAsync(requestmodel);
+            var actualed_value = await mockedrole.DeleteAsync(rolerequest);
 
             //Asserting
             Assert.NotNull(actualed_value);

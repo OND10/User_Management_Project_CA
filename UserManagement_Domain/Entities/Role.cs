@@ -5,15 +5,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserManagement_Domain.Common;
 
 namespace UserManagement_Domain.Entities
 {
-    public class Role
+    public class Role: AuditableEntity
     {
 
         public Role()
         {
-                Users=new HashSet<User>();
+            Users=new HashSet<User>();
+            UserRoles = new HashSet<UserRole>();
+            PermissionRoles = new HashSet<PermissionRole>(); 
         }
 
         [Key]
@@ -27,6 +30,12 @@ namespace UserManagement_Domain.Entities
 
         [InverseProperty(nameof(User.roles))]
         public ICollection<User>? Users { get; set;}
+
+        [InverseProperty(nameof(UserRole.role))]
+        public virtual ICollection<UserRole> UserRoles { get; set; }
+
+        [InverseProperty(nameof(PermissionRole.role))]
+        public virtual ICollection<PermissionRole> PermissionRoles { get; set; }
 
     }
 }

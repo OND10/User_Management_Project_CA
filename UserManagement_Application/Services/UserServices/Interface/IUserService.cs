@@ -19,13 +19,13 @@ namespace UserManagement_Application.Services
         public string ConfirmPassword { get; set; }
         
 
-        Task<IResponse<IEnumerable<UserResponse>>> GetAllAsync();
+        Task<IResponse<IEnumerable<UserResponseDTO>>> GetAllAsync();
 
-        Task<IResponse<UserRequest>> GetByIdAsync(int id);
+        Task<IResponse<UserRequestDTO>> GetByIdAsync(int id);
 
-        Task<IResponse<UserResponse>> CreateAsync(UserRequest model);
+        Task<IResponse<UserResponseDTO>> CreateAsync(UserRequestDTO model);
 
-        Task<IResponse> DeleteAsync(UserRequest model);
+        Task<IResponse> DeleteAsync(UserRequestDTO model);
 
 
     }

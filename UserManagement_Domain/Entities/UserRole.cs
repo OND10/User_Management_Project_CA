@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UserManagement_Domain.Common;
 
 namespace UserManagement_Domain.Entities
 {
-    public class UserRole
+    public class UserRole: AuditableEntity
     {
         public int Id { get; set; }
 
@@ -15,11 +16,13 @@ namespace UserManagement_Domain.Entities
 
         public int UserId { get; set; }
 
-        [ForeignKey("RoleId")]
-        public ICollection<Role>? Roles { get; set;}
+        [ForeignKey(nameof(UserId))]
+        [InverseProperty(nameof(User.UserRoles))]
+        public User? user { get; set; }
 
 
-        [ForeignKey("UserId")]
-        public ICollection<User>? Users { get; set; }
+        [ForeignKey(nameof(RoleId))]
+        [InverseProperty(nameof(Role.UserRoles))]
+        public Role? role { get; set; }
     }
 }

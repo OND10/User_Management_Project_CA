@@ -9,8 +9,8 @@ namespace UserManagement_Application.Mapper
     {
         public AutoMappingUserProfile()
         {
-            CreateMap<UserRequest,User>();
-            CreateMap<User, UserResponse>();
+            CreateMap<UserRequestDTO,User>();
+            CreateMap<User, UserResponseDTO>();
         }
     }
 }

@@ -8,7 +8,7 @@ using UserManagement_Domain.Entities;
 
 namespace UserManagement_Application.DTOs.Requests
 {
-    public class RoleRequest
+    public class RoleRequestDTO
     {
 
         public int Id { get; set; }
@@ -21,7 +21,7 @@ namespace UserManagement_Application.DTOs.Requests
 
 
 
-        public async Task<Role> ToModel(RoleRequest request)
+        public async Task<Role> ToModel(RoleRequestDTO request)
         {
             return await Task.FromResult<Role>(new Role
             {
@@ -30,9 +30,9 @@ namespace UserManagement_Application.DTOs.Requests
             });
         }
 
-        public async Task<RoleRequest> ToRequest(Role role)
+        public async Task<RoleRequestDTO> ToRequest(Role role)
         {
-            return await Task.FromResult<RoleRequest>(new RoleRequest
+            return await Task.FromResult<RoleRequestDTO>(new RoleRequestDTO
             {
                 Name = role.Name,
                 Description = role.Description,

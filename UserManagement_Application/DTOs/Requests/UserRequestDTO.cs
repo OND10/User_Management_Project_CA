@@ -11,7 +11,7 @@ using UserManagement_Domain.Entities;
 
 namespace UserManagement_Application.DTOs.Requests
 {
-    public class UserRequest
+    public class UserRequestDTO
     {
         [Required(ErrorMessage = "This field is required")]
         public string Name { get; set; } = string.Empty;
@@ -54,7 +54,7 @@ namespace UserManagement_Application.DTOs.Requests
         public IFormFile? File { get; set; }
         public int Id { get; set; }
 
-        public async Task<User> ToModel(UserRequest request)
+        public async Task<User> ToModel(UserRequestDTO request)
         {
             return await Task.FromResult<User>(new User
             {
@@ -71,9 +71,9 @@ namespace UserManagement_Application.DTOs.Requests
             });
         }
 
-        public async Task<UserRequest> ToRequest(User user)
+        public async Task<UserRequestDTO> ToRequest(User user)
         {
-            return await Task.FromResult<UserRequest>(new UserRequest
+            return await Task.FromResult<UserRequestDTO>(new UserRequestDTO
             {
                 Name = user.Name,
                 Email = user.Email,

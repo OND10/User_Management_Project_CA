@@ -9,7 +9,7 @@ using UserManagement_Domain.Entities;
 
 namespace UserManagement_Application.DTOs.Responses
 {
-    public class RoleResponse
+    public class RoleResponseDTO
     {
 
         [Key]
@@ -26,9 +26,9 @@ namespace UserManagement_Application.DTOs.Responses
 
 
 
-        public async Task<RoleResponse> FromModel(Role role)
+        public async Task<RoleResponseDTO> FromModel(Role role)
         {
-            return await Task.FromResult<RoleResponse>(new RoleResponse 
+            return await Task.FromResult<RoleResponseDTO>(new RoleResponseDTO 
             { 
                 Id=role.Id,
                 Name=role.Name,
@@ -37,13 +37,13 @@ namespace UserManagement_Application.DTOs.Responses
             });
         }
 
-        public async Task<List<RoleResponse>> FromModel(IEnumerable<Role> role)
+        public async Task<List<RoleResponseDTO>> FromModel(IEnumerable<Role> role)
         {
 
-            List<RoleResponse> responses = new List<RoleResponse>();
+            List<RoleResponseDTO> responses = new List<RoleResponseDTO>();
             foreach (var item in role)
             {
-                var res = new RoleResponse
+                var res = new RoleResponseDTO
                 {
                     Id = item.Id,
                     Name=item.Name,
@@ -54,9 +54,9 @@ namespace UserManagement_Application.DTOs.Responses
 
                 responses.Add(res);
             }
-            var list = new  List<RoleResponse>();
-            list.AddRange((IEnumerable<RoleResponse>)role.Select((x) => FromModel(x)));
-            return await Task.FromResult<List<RoleResponse>>(list);
+            var list = new  List<RoleResponseDTO>();
+            list.AddRange((IEnumerable<RoleResponseDTO>)role.Select((x) => FromModel(x)));
+            return await Task.FromResult<List<RoleResponseDTO>>(list);
 
         }
 

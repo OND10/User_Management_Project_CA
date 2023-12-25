@@ -12,15 +12,15 @@ namespace UserManagement_Application.Services.RoleServices
     public interface IRoleService
     {
 
-        Task<IResponse<IEnumerable<RoleResponse>>> GetAllAsync();
+        Task<IResponse<IEnumerable<RoleResponseDTO>>> GetAllAsync();
 
-        Task<IResponse<RoleResponse>> CreateAsync(RoleRequest model);
+        Task<IResponse<RoleResponseDTO>> CreateAsync(RoleRequestDTO model);
 
-        Task<IResponse<RoleResponse>> UpdateAsync(RoleRequest model);
+        Task<IResponse<RoleResponseDTO>> UpdateAsync(RoleRequestDTO model);
 
-        Task<IResponse<RoleRequest>> GetByIdAsync(int id);
+        Task<IResponse<RoleRequestDTO>> GetByIdAsync(int id);
 
-        Task<IResponse> DeleteAsync(RoleRequest model);
+        Task<IResponse> DeleteAsync(RoleRequestDTO model);
 
 
     }
