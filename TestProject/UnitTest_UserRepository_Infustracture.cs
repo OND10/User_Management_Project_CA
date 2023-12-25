@@ -20,14 +20,14 @@ namespace TestProject
         public UnitTest_UserRepository_Infustracture(Mock<IUserRepository> repository)
         {
             _userRepository=repository;
-            // Configure AutoMapper profiles (you may need to create a profile for each model)
-            var mapperConfiguration = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<User, UserFakeDataObject>();
-                // Add other mappings if needed
-            });
+            // // Configure AutoMapper profiles (you may need to create a profile for each model)
+            // var mapperConfiguration = new MapperConfiguration(cfg =>
+            // {
+            //     cfg.CreateMap<User, UserFakeDataObject>();
+            //     // Add other mappings if needed
+            // });
 
-            _mapper = new Mapper(mapperConfiguration);
+            // _mapper = new Mapper(mapperConfiguration);
         }
 
 
