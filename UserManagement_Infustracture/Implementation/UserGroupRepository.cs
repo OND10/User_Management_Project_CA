@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UserManagement_Domain.Common.Exceptions;
 using UserManagement_Domain.Entities;
 using UserManagement_Domain.Interfaces;
+using UserManagement_Infustracture.DBContext;
 
 namespace UserManagement_Infustracture.Implementation
 {
@@ -13,9 +14,10 @@ namespace UserManagement_Infustracture.Implementation
     {
 
         public List<UserGroup> usergroups;
-   
-        public UserGroupRepository()
+        private readonly AppDbContext _context;
+        public UserGroupRepository(AppDbContext context):base(context)
         {
+            _context = context;
             usergroups = new List<UserGroup>()
             {
                 new UserGroup

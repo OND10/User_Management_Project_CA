@@ -13,6 +13,10 @@ namespace UserManagement_Application.DTOs.Requests
 {
     public class UserRequestDTO
     {
+
+
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "This field is required")]
         public string Name { get; set; } = string.Empty;
 
@@ -38,7 +42,6 @@ namespace UserManagement_Application.DTOs.Requests
         public string ConfirmPassword { get; set; } = null!;
 
 
-
         public bool State { get; set; } = false;
 
         [Required(ErrorMessage = "This field is required")]
@@ -48,15 +51,11 @@ namespace UserManagement_Application.DTOs.Requests
         public string ImageUrl { get; set; } = null!;
 
 
-        public int? Role_Id { get; set; }
 
-        [NotMapped]
-        public IFormFile? File { get; set; }
-        public int Id { get; set; }
 
-        public async Task<User> ToModel(UserRequestDTO request)
+        public  User ToModel(UserRequestDTO request)
         {
-            return await Task.FromResult<User>(new User
+            return new User
             {
                 Name = request.Name,
                 Email = request.Email,
@@ -67,8 +66,9 @@ namespace UserManagement_Application.DTOs.Requests
                 ImageUrl = request.ImageUrl,
                 Username = request.Username,
                 Gender = request.Gender,
-                File = request.File
-            });
+               
+               
+            };
         }
 
         public async Task<UserRequestDTO> ToRequest(User user)
@@ -84,7 +84,7 @@ namespace UserManagement_Application.DTOs.Requests
                 ImageUrl = user.ImageUrl,
                 Username = user.Username,
                 Gender = user.Gender,
-                File = user.File
+                
             });
         }
 

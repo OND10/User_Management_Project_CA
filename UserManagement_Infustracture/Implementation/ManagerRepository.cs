@@ -10,44 +10,44 @@ namespace UserManagement_Infustracture.Implementation
     public class ManagerRepository : IManagerRepository
     {
         private readonly IUserRepository userRepository;
-        private readonly IRoleRepository roleRepository;
-        private readonly IUserRoleRepository userRoleRepository;
-        private readonly IGroupRepository groupRepository;
-        private readonly IUserGroupRepository userGroupRepository;
-        private readonly IPermissionRepository permissionRepository;
-        private readonly IPermissionRoleRepository permissionRoleRepository;
+        //private readonly IRoleRepository roleRepository;
+        //private readonly IUserRoleRepository userRoleRepository;
+        //private readonly IGroupRepository groupRepository;
+        //private readonly IUserGroupRepository userGroupRepository;
+        //private readonly IPermissionRepository permissionRepository;
+        //private readonly IPermissionRoleRepository permissionRoleRepository;
         public ManagerRepository(
-            IUserRepository userRepository,
-            IRoleRepository roleRepository,
-            IUserRoleRepository userRoleRepository,
-            IGroupRepository groupRepository,
-            IUserGroupRepository userGroupRepository,
-            IPermissionRepository permissionRepository,
-            IPermissionRoleRepository permissionRoleRepository
+            IUserRepository userRepository
+            //IRoleRepository roleRepository,
+            //IUserRoleRepository userRoleRepository,
+            //IGroupRepository groupRepository,
+            //IUserGroupRepository userGroupRepository,
+            //IPermissionRepository permissionRepository,
+            //IPermissionRoleRepository permissionRoleRepository
             )
         {
             this.userRepository = userRepository;
-            this.roleRepository = roleRepository;
-            this.userRoleRepository = userRoleRepository;
-            this.groupRepository = groupRepository;
-            this.userGroupRepository = userGroupRepository;
-            this.permissionRepository = permissionRepository;
-            this.permissionRoleRepository = permissionRoleRepository;
+            //this.roleRepository = roleRepository;
+            //this.userRoleRepository = userRoleRepository;
+            //this.groupRepository = groupRepository;
+            //this.userGroupRepository = userGroupRepository;
+            //this.permissionRepository = permissionRepository;
+            //this.permissionRoleRepository = permissionRoleRepository;
 
         }
 
         public IUserRepository UserRepository => userRepository;
 
-        public IRoleRepository RoleRepository => roleRepository;
+        //public IRoleRepository RoleRepository => roleRepository;
 
-        public IUserRoleRepository UserRoleRepository => userRoleRepository;
+        //public IUserRoleRepository UserRoleRepository => userRoleRepository;
 
-        public IGroupRepository GroupRepository => groupRepository;
+        //public IGroupRepository GroupRepository => groupRepository;
 
-        public IPermissionRepository PermissionRepository => permissionRepository;
+        //public IPermissionRepository PermissionRepository => permissionRepository;
 
-        public IPermissionRoleRepository PermissionRoleRepository => permissionRoleRepository;
+        //public IPermissionRoleRepository PermissionRoleRepository => permissionRoleRepository;
 
-        public IUserGroupRepository UserGroupRepository => userGroupRepository;
+        //public IUserGroupRepository UserGroupRepository => userGroupRepository;
     }
 }

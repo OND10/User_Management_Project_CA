@@ -10,17 +10,17 @@ namespace UserManagement_Domain.Interfaces
     {
         IUserRepository UserRepository { get; }
 
-        IRoleRepository RoleRepository { get; }
+        //IRoleRepository RoleRepository { get; }
 
-        IUserRoleRepository UserRoleRepository { get; }
+        //IUserRoleRepository UserRoleRepository { get; }
 
-        IGroupRepository GroupRepository { get; }
+        //IGroupRepository GroupRepository { get; }
 
-        IPermissionRepository PermissionRepository { get; }
+        //IPermissionRepository PermissionRepository { get; }
 
-        IPermissionRoleRepository PermissionRoleRepository { get; }
+        //IPermissionRoleRepository PermissionRoleRepository { get; }
 
-        IUserGroupRepository UserGroupRepository { get; }
+        //IUserGroupRepository UserGroupRepository { get; }
 
 
 

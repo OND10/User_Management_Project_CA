@@ -21,8 +21,6 @@ namespace UserManagement_Application.DTOs.Responses
 
         public string Description { get; set; } = string.Empty;
 
-        [InverseProperty(nameof(User.roles))]
-        public ICollection<User>? Users { get; set; }
 
 
 
@@ -33,7 +31,7 @@ namespace UserManagement_Application.DTOs.Responses
                 Id=role.Id,
                 Name=role.Name,
                 Description=role.Description,
-                Users=role.Users,
+                
             });
         }
 
@@ -48,7 +46,7 @@ namespace UserManagement_Application.DTOs.Responses
                     Id = item.Id,
                     Name=item.Name,
                     Description=item.Description,
-                    Users=item.Users,
+                    
 
                 };
 

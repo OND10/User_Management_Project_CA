@@ -7,6 +7,7 @@ using UserManagement_Domain.Common.Enums;
 using UserManagement_Domain.Common.Exceptions;
 using UserManagement_Domain.Entities;
 using UserManagement_Domain.Interfaces;
+using UserManagement_Infustracture.DBContext;
 
 namespace UserManagement_Infustracture.Implementation
 {
@@ -14,9 +15,10 @@ namespace UserManagement_Infustracture.Implementation
     {
 
         public List<Role> roles;
-  
-        public RoleRepository()
+        private readonly AppDbContext _context;
+        public RoleRepository(AppDbContext context):base(context)
         {
+            _context = context;
             roles = new List<Role>()
             {
                 new Role

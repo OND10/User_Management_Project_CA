@@ -24,5 +24,7 @@ namespace UserManagement_Domain.IRepositories
 
         Task<IEnumerable<T>> Query(string query);
 
+        Task<int> SaveChangeAsync();
+
     }
 }

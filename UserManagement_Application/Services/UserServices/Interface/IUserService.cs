@@ -27,6 +27,10 @@ namespace UserManagement_Application.Services
 
         Task<IResponse> DeleteAsync(UserRequestDTO model);
 
+        Task<IResponse<UserResponseDTO>> UpdateAsync(UserRequestDTO model);
+
+        Task<int> SaveChangeAsync();
+
 
     }
 }

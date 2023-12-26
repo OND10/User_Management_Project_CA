@@ -9,15 +9,17 @@ using UserManagement_Application.Utly;
 using UserManagement_Domain.Common.Enums;
 using UserManagement_Domain.Common.Exceptions;
 using UserManagement_Domain.Entities;
+using UserManagement_Domain.Interfaces;
 
 namespace UserManagement_Application.Services
 {
     public class UserService:IUserService
     {
-
+        private readonly IManagerRepository _repository;
+        private readonly IUserRepository _userRepository;
         public List<User> users;
 
-        public UserService()
+        public UserService(IManagerRepository repository, IUserRepository userRepository)
         {
             users = new List<User>()
             {
@@ -34,6 +36,8 @@ namespace UserManagement_Application.Services
                 },
 
             };
+            _repository=repository;
+            _userRepository = userRepository;
         }
         public string Email { get; set; } = string.Empty;
         public string Phonenumber { get; set; } = null!;
@@ -48,12 +52,12 @@ namespace UserManagement_Application.Services
             try
             {
                 //Mapped the userrequest to domain model
-                User modelobj =  await model.ToModel(model);
+                User modelobj =  model.ToModel(model);
                 //Added to list of type domain model
-                users.Add(modelobj);
+                await _repository.UserRepository.AddAsync(modelobj);
                 var responseobj = new UserResponseDTO();
 
-                return Response<UserResponseDTO>.Success(await responseobj.FromModel(modelobj)," ");
+                return Response<UserResponseDTO>.Success(responseobj.FromModel(modelobj)," ");
             }
             catch (Exception)
             {
@@ -65,8 +69,8 @@ namespace UserManagement_Application.Services
         {
             try
             {
-                User domainmodel= await model.ToModel(model);
-                users.Remove(domainmodel);
+                User domainmodel= model.ToModel(model);
+                await _repository.UserRepository.DeleteAsync(domainmodel);
                 return Response.Success();
             }
             catch (Exception)
@@ -77,25 +81,21 @@ namespace UserManagement_Application.Services
 
         public async Task<IResponse<IEnumerable<UserResponseDTO>>> GetAllAsync()
         {
-            try
-            {
-                var list = users.ToList();
+            
+                var list = await _userRepository.GetAllAsync();
                 var responseobj=new UserResponseDTO();
-                var converted= await responseobj.FromModel(list);
+                var converted= responseobj.FromModel(list);
 
-                return Response<IEnumerable<UserResponseDTO>>.Success(converted," ");
-            }
-            catch (Exception)
-            {
-                throw new ModelNullException(nameof(users), "Exception in returning list of users");
-            }
+                return await Response<IEnumerable<UserResponseDTO>>.SuccessAsync(converted," ");
+            
+            
         }
 
         public async Task<IResponse<UserRequestDTO>> GetByIdAsync(int id)
         {
             try
             {
-                var find = users.FirstOrDefault(u => u.Id == id);
+                var find = await _repository.UserRepository.GetByIdAsync(id);
                 if (find==null) 
                 {
                     throw new IdNullException("Exception : Id is Null");
@@ -111,5 +111,31 @@ namespace UserManagement_Application.Services
                 throw new ModelNullException(nameof(id), "Exception in finding the User");
             }
         }
+
+        public async Task<int> SaveChangeAsync()
+        {
+            return await _repository.UserRepository.SaveChangeAsync();
+        }
+
+        public async Task<IResponse<UserResponseDTO>> UpdateAsync(UserRequestDTO model)
+        {
+            try
+            {
+                //Mapped the userrequest to domain model
+                User modelobj = model.ToModel(model);
+                //Added to list of type domain model
+                await _repository.UserRepository.UpdateAsync(modelobj);
+                var responseobj = new UserResponseDTO();
+
+                return Response<UserResponseDTO>.Success( responseobj.FromModel(modelobj), " ");
+            }
+            catch (Exception)
+            {
+                throw new ModelNullException(nameof(model), "Exception in updating User");
+            }
+
+        }
+
+      
     }
 }

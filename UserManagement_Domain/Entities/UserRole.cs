@@ -23,6 +23,6 @@ namespace UserManagement_Domain.Entities
 
         [ForeignKey(nameof(RoleId))]
         [InverseProperty(nameof(Role.UserRoles))]
-        public Role? role { get; set; }
+        public Role? rolee { get; set; }
     }
 }

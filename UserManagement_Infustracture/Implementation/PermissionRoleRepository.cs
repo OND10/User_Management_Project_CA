@@ -6,15 +6,17 @@ using System.Threading.Tasks;
 using UserManagement_Domain.Common.Exceptions;
 using UserManagement_Domain.Entities;
 using UserManagement_Domain.Interfaces;
+using UserManagement_Infustracture.DBContext;
 
 namespace UserManagement_Infustracture.Implementation
 {
     public class PermissionRoleRepository: GenericRepository<PermissionRole>, IPermissionRoleRepository
     {
         public List<PermissionRole> perroles;
-
-        public PermissionRoleRepository()
+        private readonly AppDbContext _context;
+        public PermissionRoleRepository(AppDbContext context):base(context)
         {
+            _context = context;
             perroles = new List<PermissionRole>()
             {
                 new PermissionRole

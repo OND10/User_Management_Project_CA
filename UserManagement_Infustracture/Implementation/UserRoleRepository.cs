@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 using UserManagement_Domain.Common.Exceptions;
 using UserManagement_Domain.Entities;
 using UserManagement_Domain.Interfaces;
+using UserManagement_Infustracture.DBContext;
 
 namespace UserManagement_Infustracture.Implementation
 {
     public class UserRoleRepository: GenericRepository<UserRole>, IUserRoleRepository
     {
         public List<UserRole> userroles;
-    
+        private readonly AppDbContext _context;
 
-        public UserRoleRepository()
+        public UserRoleRepository(AppDbContext context):base(context)
         {
+            _context = context;
             userroles = new List<UserRole>()
             {
                 new UserRole

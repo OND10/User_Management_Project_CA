@@ -15,36 +15,29 @@ namespace UserManagement_Application.DTOs.Responses
 
         public int Id { get; set; }
 
-        public string Name { get; set; } = string.Empty;
+        public string? Name { get; set; }
 
-        public string Email { get; set; } = string.Empty;
+        public string? Email { get; set; } 
 
-        public string Username { get; set; } = null!;
+        public string? Username { get; set; }
 
-        public string PhoneNumber { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; } 
 
         public bool State { get; set; } = false;
 
         public string? Address { get; set; }
 
         public bool Gender { get; set; } = Convert.ToBoolean(GenderEnum.Female);
-
-        public int? Role_Id { get; set; }
-
-        [ForeignKey(nameof(Role_Id))]
-        [InverseProperty(nameof(Role.Users))]
-
-        public ICollection<Role>? roles { get; set; }
-
-        public async Task<UserResponseDTO> FromModel(User user)
+ 
+        public UserResponseDTO FromModel(User user)
         {
-            return await Task.FromResult<UserResponseDTO>(new UserResponseDTO 
+            return new UserResponseDTO 
             { 
-                Id = user.Id, Name = user.Name, Email = user.Email, State = user.State, Address = user.Address 
-            });
+                Id = user.Id, Name = user.Name, Email = user.Email, State = user.State, Username=user.Username, Address = user.Address, Gender=user.Gender,PhoneNumber=user.PhoneNumber
+            };
         }
 
-        public async Task<List<UserResponseDTO>> FromModel(IEnumerable<User>user) {
+        public List<UserResponseDTO> FromModel(IEnumerable<User>user) {
 
             List<UserResponseDTO> responses=new List<UserResponseDTO>();
             foreach(var item in user)
@@ -56,15 +49,14 @@ namespace UserManagement_Application.DTOs.Responses
                     Email = item.Email,
                     State = item.State,
                     Address = item.Address,
-                    Role_Id = item.Role_Id,
-                    roles=item.roles
-
+                    Gender = item.Gender,
+                    PhoneNumber = item.PhoneNumber,
                 };
                 responses.Add(res);
             }
             var list=new List<UserResponseDTO>();
-            list.AddRange((IEnumerable<UserResponseDTO>)user.Select((x) => FromModel(x)));
-            return await Task.FromResult<List<UserResponseDTO>>(list);
+            list.AddRange(user.Select((x) => FromModel(x)));
+            return list;
         
         }
     }

@@ -16,7 +16,7 @@ namespace UserManagement_Domain.Entities
         public int PermissionId { get; set; }
 
         [ForeignKey(nameof(RoleId))]
-        [InverseProperty(nameof(Role.UserRoles))]
+        [InverseProperty(nameof(Role.PermissionRoles))]
         public Role? role { get; set; }
 
         [ForeignKey(nameof(PermissionId))]

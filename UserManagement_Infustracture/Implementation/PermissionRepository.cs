@@ -7,6 +7,7 @@ using UserManagement_Domain.Common.Enums;
 using UserManagement_Domain.Common.Exceptions;
 using UserManagement_Domain.Entities;
 using UserManagement_Domain.Interfaces;
+using UserManagement_Infustracture.DBContext;
 
 namespace UserManagement_Infustracture.Implementation
 {
@@ -14,10 +15,11 @@ namespace UserManagement_Infustracture.Implementation
     {
 
         public List<Permission> permis;
-      
+        private readonly AppDbContext _context;
 
-        public PermissionRepository()
+        public PermissionRepository(AppDbContext context):base(context)
         {
+            _context = context;
             permis = new List<Permission>()
             {
                 new Permission

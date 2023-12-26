@@ -14,7 +14,6 @@ namespace UserManagement_Domain.Entities
 
         public Role()
         {
-            Users=new HashSet<User>();
             UserRoles = new HashSet<UserRole>();
             PermissionRoles = new HashSet<PermissionRole>(); 
         }
@@ -28,14 +27,11 @@ namespace UserManagement_Domain.Entities
 
         public string Description { get; set; }=string.Empty;
 
-        [InverseProperty(nameof(User.roles))]
-        public ICollection<User>? Users { get; set;}
-
-        [InverseProperty(nameof(UserRole.role))]
-        public virtual ICollection<UserRole> UserRoles { get; set; }
+        [InverseProperty(nameof(UserRole.rolee))]
+        public ICollection<UserRole> UserRoles { get; set; }
 
         [InverseProperty(nameof(PermissionRole.role))]
-        public virtual ICollection<PermissionRole> PermissionRoles { get; set; }
+        public ICollection<PermissionRole> PermissionRoles { get; set; }
 
     }
 }

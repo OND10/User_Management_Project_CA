@@ -7,15 +7,17 @@ using UserManagement_Domain.Common.Enums;
 using UserManagement_Domain.Common.Exceptions;
 using UserManagement_Domain.Entities;
 using UserManagement_Domain.Interfaces;
+using UserManagement_Infustracture.DBContext;
 
 namespace UserManagement_Infustracture.Implementation
 {
     public class UserRepository:GenericRepository<User>,IUserRepository
     {
         public List<User> users;
-
-        public UserRepository()
+        private readonly AppDbContext _context;
+        public UserRepository(AppDbContext context):base(context)
         {
+            _context = context;
             users = new List<User>()
             {
                  new User
@@ -39,15 +41,40 @@ namespace UserManagement_Infustracture.Implementation
         public string ConfirmPassword { get; set; } = string.Empty;
         public int Id { get; set; }
 
+
         public new async Task<IEnumerable<User>> GetAllAsync()
         {
-            var list = users.ToList();
-            return await Task.FromResult<IEnumerable<User>>(list);
+#pragma warning disable CS8604 // Possible null reference argument.
+            var list = _context.Users.ToList();
+#pragma warning restore CS8604 // Possible null reference argument.
+            if (list.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return await Task.FromResult<IEnumerable<User>>(list);
+            }
         }
 
-        public new  async Task<User> AddAsync(User model)
+        //public new int SaveChangeAsync()
+        //{
+        //    if (_context.SaveChanges() == 1)
+        //    {
+        //        return 1;
+        //    }
+        //    else
+        //    {
+        //        return 0;
+        //    }
+        //}
+
+        public new async Task<User> AddAsync(User model)
         {
-            users.Add(model);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            _context.Users.Add(model);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+            _context.SaveChanges();
             return await Task.FromResult<User>(model);
         }
 
@@ -57,11 +84,11 @@ namespace UserManagement_Infustracture.Implementation
             return await Task.FromResult<User>(model);
         }
 
-        
+
         public new async Task<User> GetByIdAsync(int id)
         {
-            var find= users.FirstOrDefault(x => x.Id == id);
-            if(find == null)
+            var find = users.FirstOrDefault(x => x.Id == id);
+            if (find == null)
             {
                 throw new IdNullException("Exception : Id is Null");
             }
