@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\UserManagement_Application\UserManagement_Application.csproj" />
     <ProjectReference Include="..\UserManagement_Domain\UserManagement_Domain.csproj" />
+    <ProjectReference Include="..\UserManagement_WebApi\UserManagement_WebApi.csproj" />
   </ItemGroup>
 
 </Project>

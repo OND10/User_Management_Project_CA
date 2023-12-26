@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject", "TestProject\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagement_Infustracture", "UserManagement_Infustracture\UserManagement_Infustracture.csproj", "{BCB4C2F4-9B43-4367-BF56-CA6599F3C667}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagement_WebApi", "UserManagement_WebApi\UserManagement_WebApi.csproj", "{D2FCD68E-C9DF-44DF-A711-2B991277E83A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{BCB4C2F4-9B43-4367-BF56-CA6599F3C667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCB4C2F4-9B43-4367-BF56-CA6599F3C667}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCB4C2F4-9B43-4367-BF56-CA6599F3C667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2FCD68E-C9DF-44DF-A711-2B991277E83A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2FCD68E-C9DF-44DF-A711-2B991277E83A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2FCD68E-C9DF-44DF-A711-2B991277E83A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2FCD68E-C9DF-44DF-A711-2B991277E83A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

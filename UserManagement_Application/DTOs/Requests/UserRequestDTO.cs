@@ -13,6 +13,9 @@ namespace UserManagement_Application.DTOs.Requests
 {
     public class UserRequestDTO
     {
+
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "This field is required")]
         public string Name { get; set; } = string.Empty;
 
@@ -44,30 +47,20 @@ namespace UserManagement_Application.DTOs.Requests
         [Required(ErrorMessage = "This field is required")]
         public string? Address { get; set; }
 
-
-        public string ImageUrl { get; set; } = null!;
-
-
-        public int? Role_Id { get; set; }
-
-        [NotMapped]
-        public IFormFile? File { get; set; }
-        public int Id { get; set; }
-
         public async Task<User> ToModel(UserRequestDTO request)
         {
             return await Task.FromResult<User>(new User
             {
+                Id = request.Id,
                 Name = request.Name,
                 Email = request.Email,
                 Password = request.Password,
                 ConfirmPassword = request.ConfirmPassword,
                 PhoneNumber = request.PhoneNumber,
                 Address = request.Address,
-                ImageUrl = request.ImageUrl,
                 Username = request.Username,
-                Gender = request.Gender,
-                File = request.File
+                Gender = request.Gender
+                
             });
         }
 
@@ -75,16 +68,16 @@ namespace UserManagement_Application.DTOs.Requests
         {
             return await Task.FromResult<UserRequestDTO>(new UserRequestDTO
             {
+                Id=user.Id,
                 Name = user.Name,
                 Email = user.Email,
                 Password = user.Password,
                 ConfirmPassword = user.ConfirmPassword,
                 PhoneNumber = user.PhoneNumber,
                 Address = user.Address,
-                ImageUrl = user.ImageUrl,
                 Username = user.Username,
-                Gender = user.Gender,
-                File = user.File
+                Gender = user.Gender
+               
             });
         }
 

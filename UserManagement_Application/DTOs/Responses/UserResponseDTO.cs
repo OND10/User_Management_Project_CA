@@ -29,19 +29,14 @@ namespace UserManagement_Application.DTOs.Responses
 
         public bool Gender { get; set; } = Convert.ToBoolean(GenderEnum.Female);
 
-        public int? Role_Id { get; set; }
+       
 
-        [ForeignKey(nameof(Role_Id))]
-        [InverseProperty(nameof(Role.Users))]
-
-        public ICollection<Role>? roles { get; set; }
-
-        public async Task<UserResponseDTO> FromModel(User user)
+        public UserResponseDTO FromModel(User user)
         {
-            return await Task.FromResult<UserResponseDTO>(new UserResponseDTO 
+            return new UserResponseDTO 
             { 
-                Id = user.Id, Name = user.Name, Email = user.Email, State = user.State, Address = user.Address 
-            });
+                Id = user.Id, Name = user.Name, Email = user.Email, State = user.State, Address = user.Address,Gender = user.Gender, PhoneNumber = user.PhoneNumber,Username = user.Username,
+            };
         }
 
         public async Task<List<UserResponseDTO>> FromModel(IEnumerable<User>user) {
@@ -56,9 +51,9 @@ namespace UserManagement_Application.DTOs.Responses
                     Email = item.Email,
                     State = item.State,
                     Address = item.Address,
-                    Role_Id = item.Role_Id,
-                    roles=item.roles
-
+                    Gender = item.Gender,
+                    PhoneNumber = item.PhoneNumber,
+                    Username = item.Username,
                 };
                 responses.Add(res);
             }

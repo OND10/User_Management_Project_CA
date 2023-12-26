@@ -9,6 +9,7 @@ using UserManagement_Application.Utly;
 using UserManagement_Domain.Common.Enums;
 using UserManagement_Domain.Common.Exceptions;
 using UserManagement_Domain.Entities;
+using UserManagement_Domain.Interfaces;
 
 namespace UserManagement_Application.Services
 {
@@ -16,9 +17,13 @@ namespace UserManagement_Application.Services
     {
 
         public List<User> users;
+        private readonly IManagerRepository _repsoitory;
+        private readonly IUserRepository _userRepository;
 
-        public UserService()
+        public UserService(IManagerRepository repository,IUserRepository userRepository)
         {
+            _repsoitory = repository;
+            _userRepository = userRepository;
             users = new List<User>()
             {
                 new User
@@ -50,10 +55,10 @@ namespace UserManagement_Application.Services
                 //Mapped the userrequest to domain model
                 User modelobj =  await model.ToModel(model);
                 //Added to list of type domain model
-                users.Add(modelobj);
+                await _repsoitory.UserRepository.AddAsync(modelobj);
                 var responseobj = new UserResponseDTO();
 
-                return Response<UserResponseDTO>.Success(await responseobj.FromModel(modelobj)," ");
+                return Response<UserResponseDTO>.Success(responseobj.FromModel(modelobj)," ");
             }
             catch (Exception)
             {
@@ -66,7 +71,7 @@ namespace UserManagement_Application.Services
             try
             {
                 User domainmodel= await model.ToModel(model);
-                users.Remove(domainmodel);
+                await _userRepository.DeleteAsync(domainmodel);
                 return Response.Success();
             }
             catch (Exception)
@@ -79,7 +84,7 @@ namespace UserManagement_Application.Services
         {
             try
             {
-                var list = users.ToList();
+                var list = await _repsoitory.UserRepository.GetAllAsync();
                 var responseobj=new UserResponseDTO();
                 var converted= await responseobj.FromModel(list);
 
@@ -95,7 +100,7 @@ namespace UserManagement_Application.Services
         {
             try
             {
-                var find = users.FirstOrDefault(u => u.Id == id);
+                var find = await _repsoitory.UserRepository.GetByIdAsync(id);
                 if (find==null) 
                 {
                     throw new IdNullException("Exception : Id is Null");
@@ -103,7 +108,7 @@ namespace UserManagement_Application.Services
                 else
                 {
                     var requestobj=new UserRequestDTO();
-                    return Response<UserRequestDTO>.Success(await requestobj.ToRequest(find)," ");
+                    return Response<UserRequestDTO>.Success(await requestobj.ToRequest(find),"");
                 }
             }
             catch (Exception)
